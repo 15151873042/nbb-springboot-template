@@ -54,7 +54,7 @@
 
     <build>
         <!-- 项目打包之后的jar包名称 -->
-        <finalName>dynamic-form</finalName>
+        <finalName>nbb-springboot-template</finalName>
         <!-- maven打包，扫描哪些文件，替换文件中的maven占位符，例如@package.environment@ -->
         <resources>
             <resource>
