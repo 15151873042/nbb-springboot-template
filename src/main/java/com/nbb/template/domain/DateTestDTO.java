@@ -1,13 +1,23 @@
 package com.nbb.template.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
-public class DateTestDTO {
+public class DateTestDTO implements Serializable {
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime localDateTime;
+
+    private LocalDate localDate;
+
     private Date date;
+
+    private Boolean flag;
+
+    private Long age;
+
 }

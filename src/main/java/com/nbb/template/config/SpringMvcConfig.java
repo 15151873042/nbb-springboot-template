@@ -1,9 +1,9 @@
 package com.nbb.template.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.nbb.template.framework.jackson.LongToStringSerializer;
-import com.nbb.template.framework.springmvc.StringToDateConverter;
+import com.nbb.template.framework.springmvc.converter.StringToDateConverter;
+import com.nbb.template.framework.springmvc.converter.StringToLocalDateConverter;
+import com.nbb.template.framework.springmvc.converter.StringToLocalDateTimeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -33,19 +33,19 @@ public class SpringMvcConfig implements WebMvcConfigurer {
             }
         }
 
-        // 将超过16位的long，Long类型转换成String，已避免前端精度丢失
-        SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addSerializer(Long.class, new LongToStringSerializer());
-        simpleModule.addSerializer(Long.TYPE, new LongToStringSerializer());
-        ObjectMapper httpMessageObjectMapper = objectMapper.copy();
-        httpMessageObjectMapper.registerModule(simpleModule);
-
-        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(httpMessageObjectMapper);
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
         converters.add(mappingJackson2HttpMessageConverter);
     }
 
+    /**
+     * 添加数据类型转换器，用于x-www-form-urlencoded传参
+     * @param registry
+     */
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToDateConverter());
+        registry.addConverter(new StringToLocalDateConverter());
+        registry.addConverter(new StringToLocalDateTimeConverter());
     }
+
 }

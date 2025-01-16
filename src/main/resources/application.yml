@@ -4,15 +4,16 @@ server:
 spring:
   profiles:
     active: @package.environment@
-  mvc:
-    format:
-      # x-www-form-urlencoded传参，localDateTime类型赋值数据转换格式
-      date-time: yyyy-MM-dd HH:mm:ss
+#  mvc:
+#    format:
+#      # x-www-form-urlencoded传参，localDateTime类型赋值数据转换格式
+#      date-time: yyyy-MM-dd HH:mm:ss
+#      date: yyyy-MM-dd HH:mm:ss
   jackson:
     # 添加此配置，date类型josn序列化不会差8小时
     time-zone: GMT+8
     # json序列化时，属性值为null的字段不序列化
     default-property-inclusion: non_null
     # Date类型默认序列化格式
-    date-format: yyyy-MM-dd HH:mm:ss
+#    date-format: yyyy-MM-dd HH:mm:ss
 

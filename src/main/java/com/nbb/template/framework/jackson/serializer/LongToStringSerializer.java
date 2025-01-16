@@ -1,4 +1,4 @@
-package com.nbb.template.framework.jackson;
+package com.nbb.template.framework.jackson.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -14,10 +14,6 @@ public class LongToStringSerializer extends JsonSerializer<Long> {
 
     @Override
     public void serialize(Long value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        if (value != null && value.toString().length() > 16) {
-            gen.writeString(value.toString());
-        } else {
-            gen.writeNumber(value);
-        }
+        gen.writeString(value.toString());
     }
 }
