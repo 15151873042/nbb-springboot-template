@@ -1,25 +1,26 @@
 package com.nbb.template.controller;
 
-import cn.hutool.core.map.MapUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import cn.hutool.db.Page;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.nbb.template.AjaxResult;
 import com.nbb.template.domain.DateTestDTO;
+import com.nbb.template.domain.DictTypeDO;
+import com.nbb.template.mapper.DictTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.util.Map;
-
 @RestController
 public class TestController {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    DictTypeMapper dictTypeMapper;
 
 
     @RequestMapping("/date")
@@ -33,5 +34,11 @@ public class TestController {
     @RequestMapping("/test")
     public AjaxResult test() {
         return AjaxResult.success();
+    }
+
+    @RequestMapping("/list")
+    public AjaxResult list() {
+        PageDTO<DictTypeDO> dictTypeDOPageDTO = dictTypeMapper.selectPage(new PageDTO<>(), new LambdaQueryWrapper<>());
+        return AjaxResult.success(dictTypeDOPageDTO);
     }
 }

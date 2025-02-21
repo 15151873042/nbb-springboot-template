@@ -1,7 +1,6 @@
 POST {{baseUrl}}/date
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-aLong = 10 &
-aBoolean = true &
-localDateTime = 2025-01-16 10:10:10 &
-date = 2025-01-16 10:10:10
+{
+  "zonedDateTime": "2025-01-17T08:51:05+01:00"
+}
